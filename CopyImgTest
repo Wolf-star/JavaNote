@@ -1,0 +1,14 @@
+import java.io.File;
+import java.io.IOException;
+
+public class CopyImgTest {
+
+	public static void main(String[] args) throws IOException {
+		//使用前要确保文件夹操作权限
+		File a=new File("C:\\Users\\E0A9850\\Desktop\\RIS错误\\");
+		File b=new File("D:\\e\\images\\");
+		CopyImg.Copy(b, a);
+
+	}
+
+}
