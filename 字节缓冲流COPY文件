@@ -1,0 +1,40 @@
+/*
+*字节缓冲流COPY文件
+*/
+public class BufferedCopy {
+
+	public static void main(String[] args) {
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+
+		try {
+			bis = new BufferedInputStream(new FileInputStream(
+					"C:\\Users\\E0A9850\\Desktop\\每日工作\\useful\\各种.net版本\\NDP452-KB2901907-x86-x64-AllOS-ENU.rar"));
+
+			bos = new BufferedOutputStream(new FileOutputStream("D:\\e\\images\\.net4.52.rar"));
+
+			byte[] bys = new byte[1024];
+			int len = bis.read(bys);
+			while (len != -1) {
+				bos.write(bys, 0, len);
+				len = bis.read(bys);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bis.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				bos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
