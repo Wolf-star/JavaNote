@@ -1,0 +1,28 @@
+/*
+*字符缓冲流COPY文件
+*/
+public class BufferedReaderTest {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(
+				"C:\\Users\\E0A9850\\Desktop\\每日工作\\useful\\各种.net版本\\NDP452-KB2901907-x86-x64-AllOS-ENU.rar"));
+		BufferedWriter bw = new BufferedWriter(new FileWriter("d:\\e\\images\\bw.net.rar"));
+    //方法一
+    char [] ch=new char[1024];
+    int len=0;
+    while((len=br.read(ch))!=-1){
+      bw.write(ch,0,len);
+    }
+    //方法二
+		String line = null;
+		while ((line = br.readLine()) != null) {
+			bw.write(line);
+			bw.newLine();
+			bw.flush();
+		}
+		br.close();
+		bw.close();
+
+	}
+
+}
