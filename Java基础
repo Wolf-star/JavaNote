@@ -1,0 +1,273 @@
+1：方法重载(理解)--主要用于构造方法，参数不同
+	(1)在同一个类中，方法名相同，参数列表不同的方法。
+		参数列表不同：个数不同，数据类型不同
+		与返回值类型无关。
+2:方法重写(掌握)--继承抽象类后需要实现父类抽象方法
+	(1)描述：在子类中，出现了和父类中一模一样的方法声明的现象。
+	(2)作用：可以使用父类功能，还可以增强该功能。
+	(3)面试题：
+		override和overload的区别?
+		overload可以改变返回值类型吗?
+	(4)方法重写的注意事项：
+		A:父类私有方法不能被重写
+		B:子类重写方法的访问权限不能比父类的方法低
+		C:静态只能重写静态。(其实这算不上重写)
+3:static关键字(掌握)
+	(1)是一个状态修饰符。静态的意思
+	(2)它可以修饰成员变量和成员方法
+	(3)特点：
+		A:随着类的加载而加载
+		B:优先于对象存在
+		C:被所有对象共享
+			这也是判断我们是不是该使用静态的条件
+			举例：饮水机和水杯例子。
+		D:可以通过类名调用
+			静态修饰的内容，可以通过类名调用，也可以通过对象名调用
+	(4)方法访问特点
+		A:普通成员方法
+			可以访问静态成员变量，非静态成员变量，静态成员方法，非静态成员方法
+		B:静态成员方法
+			只能访问静态成员变量，静态成员方法
+
+			简记：静态只能访问静态
+
+		注意：
+			静态中是不能有this的。
+			先进内存的不能访问后进内存的。反之可以。
+4：Arrays工具类(掌握)
+	(1)Arrays是针对数组进行操作的工具类，提供了排序和查找等功能
+	(2)成员方法：(自己补齐方法和意思)
+		A:把数组转成字符串
+			public static String toString():将任意类型数据转换成字符串
+		B:排序
+			public static void sort()：
+		C:二分查找
+			public static int binarySearch(int[] arr,int key)
+	(3)案例：
+		把字符串中的字符进行排序
+5：基本类型包装类(掌握)
+	(1)为了让我们对基本类型进行更多的操作，java针对每种基本类型提供了对应的包装类类型。
+	(2)分别是哪些呢?
+		byte		Byte
+		short		Short
+		int		Integer
+		long		Long
+		float		Float
+		double		Double
+		char		Character
+		boolean		Boolean
+	特殊：  void		Void
+6：Collection集合(掌握)--存储单个对象，3种遍历方法：增强for/.size()/Iterator
+	例：Student s1 = new Student("Wolf", 22);
+		Student s2 = new Student("Sue", 20);
+
+		ArrayList<Student> al = new ArrayList<Student>();
+		al.add(s1);
+		al.add(s2);
+		// al.add(100);
+		for(int i=0;i<al.size();i++) {
+			Student s=al.get(i);
+			System.out.println(s.getName()+"-------"+s.getAge());
+		}
+		
+		Iterator<Student> it = al.iterator();
+		while (it.hasNext()) {
+			Student s = it.next();
+			System.out.println(s.getName() + "-------" + s.getAge());
+		}
+		// 简化for循环
+		for (Student s : al) {
+			System.out.println(s.getName() + "-------" + s.getAge());
+		}
+	(1)集合的由来
+		我们学习的是面向对象的语言，而面向对象的语言常见的操作就是操作对象。
+		为了方便我们对多个对象进行操作，我们可以使用对象数组来进行。
+		但是对象数组的长度是固定的，不适应变化的需求，所以，java就提供了集合
+		供我们来使用。
+	(2)集合的特点
+		A:长度可变
+		B:只能存储引用类型
+		C:可以存储多种引用类型
+	(3)数组和集合的区别
+		A:数组的长度固定;数组可以存储基本类型，也可以存储引用类型;数组存储的是同一种数据类型的元素
+		B:集合的长度可变;集合只能存储引用类型;集合可以存储多种引用类型。
+	(4)集合的继承体系结构
+		多种集合类的数据结构不同，但是功能相似，所以，我们不断的向上抽取，就形成了集合的继承体系结构
+			Collection
+				|--List
+					|--ArrayList
+					|--Vector
+					|--LinkedList
+				|--Set
+					|--HashSet
+					|--TreeSet
+	
+		面对这样的继承体系结构,我们该学习谁,使用谁呢?
+			学习：顶层，因为顶层定义的是共性功能。
+			使用：底层，因为底层才是具体的实现类，并且具有最多的功能。
+	(5)Collection的功能概述：(自己补齐中文意思)
+		A:添加功能
+			add(Object obj)
+			addAll(Collection c)
+		B:移除功能
+			remove(Object obj)
+			removeAll(Collection c)
+			clear()
+		C:判断功能
+			contains(Object obj)
+			containsAll(Collection c)
+			isEmpty()
+		D:获取功能
+			iterator()
+			size()
+		E:交集功能
+			retainAll(Collection c)
+		F:转数组功能
+			toArray()		
+7：List集合(掌握)
+	(1)List集合的特点
+		元素有序(存储顺序和取出顺序一致),可重复。
+	(2)List集合的特有功能：(自己补齐中文意思)
+		A:add(int index,Object obj)
+		B:remove(int index)
+		C:get(int index)
+		D:set(int index,Object obj)
+		E:listIterator()
+	(3)List集合的特有遍历功能
+		通过size()和get()方法结合即可
+	(4)ListIterator的概述和使用(理解)
+		A:ListIterator是Iterator的子接口
+		B:ListIterator可以逆向遍历，但是意义不大。
+			因为它需要先正向遍历。
+		C:并发修改异常产生的原因和解决方案
+			a:原因
+				用迭代器遍历集合的时候，用集合去修改了集合的元素。
+			b:解决方案
+				用普通for遍历，并用集合去添加元素
+				用列表迭代器遍历，并用列表迭代器去添加元素		
+8：Set集合(理解)
+	(1)Set集合的特点
+		无序，唯一
+	(2)HashSet集合(掌握)
+		A:元素唯一
+		B:如何保证元素唯一呢?
+			HashSet集合的底层数据结构是哈希表。
+			哈希表保证元素唯一性依赖两个方法：hashCode()和equals()
+			步骤：
+				a:首先判断对象的哈希值是否相同
+				b:如果不同，就直接添加到集合
+				  如果相同，就继续执行equals()进行比较
+				c:如果返回false，就直接添加到集合
+				  如果返回true，说明元素重复，不添加。
+		C:不用担心
+			遇到HashXxx格式的集合，要记住重写两个方法即可。并且，这两个方法是可以自动生成的		
+	自定义排序方法：
+		1.对象引用Comparable<Student>接口：
+		public class Student implements Comparable<Student> 
+		//存储不重复的对象，用HashSet(),对象里重写hashCode()和equals()
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + score;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Student other = (Student) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (score != other.score)
+			return false;
+		return true;
+	}
+	2.排序的字段设置：
+	@Override
+	public int compareTo(Student o) {
+		// TODO Auto-generated method stub
+		//倒序
+		int num = o.score - this.score;
+		//如果分数相同，比较姓名
+		int num2 = (num == 0) ? (this.name.compareTo(o.name)) : num;
+		return num2;
+	}
+9：Map(掌握)
+	例：
+		Map<String,String> m=new HashMap<String,String>();
+		m.put("无忌", "赵敏");
+		m.put("杨过", "姑姑");
+		m.put("承志", "青青");
+		
+		System.out.println(m.size());
+		System.out.println("m "+m);
+		System.out.println(m.get("无忌"));
+		System.out.println(m.keySet());
+		System.out.println(m.values());
+		for(String s:m.keySet()) {
+			System.out.println(m.get(s));
+		}
+	(1)Map的特点
+		是由键和值组成的。每一个元素是一个键值对，由两部分组成。
+		键唯一，值可以重复。
+		它的实现类的数据结构只针对键有效，跟值无关。
+	(2)Map和Collection的区别?
+		A:Map双列集合，由键值对组成；键唯一，值可以重复；数据结构针对键有效
+		B:Collection单列集合，有单个元素组成；Set唯一，List可重复；数据结构针对元素有效
+	(3)Map的功能概述(自己补齐方法和中文意思)
+		A:添加功能
+			put
+		B:移除功能
+			remove
+			clear
+		C:判断功能
+			containsKey,containsValue
+			isEmpty
+		D:获取功能
+			size
+			get
+			keySet
+			values
+			entrySet
+	(4)Map的遍历
+		A:根据键找值
+			获取所有键的集合
+			遍历键的集合，得到每一个键
+			根据键找值
+		B:根据键值对对象找键和值
+			获取所有的键值对对象的集合
+			遍历键值对对象的集合，得到每一个键值对对象
+			根据键值对对象获取键和值
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
