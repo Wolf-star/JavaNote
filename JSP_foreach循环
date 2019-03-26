@@ -1,0 +1,101 @@
+//Eclipse 使用JSTL需要导包 jstl standard
+
+
+//对象部分------------------------------------
+
+public class Doctor {
+	private int id;
+	private String dname;
+	private String dept;
+	private String pym;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getDname() {
+		return dname;
+	}
+
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getPym() {
+		return pym;
+	}
+
+	public void setPym(String pym) {
+		this.pym = pym;
+	}
+
+	public Doctor(int id, String dname, String dept, String pym) {
+		super();
+		this.id = id;
+		this.dname = dname;
+		this.dept = dept;
+		this.pym = pym;
+	}
+
+	public Doctor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+}
+
+//JSP部分------------------------------------
+
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	import="com.shuanghuan.entity.*,java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="Iutf-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<%
+		Doctor d1 = new Doctor();
+		d1.setId(1);
+		d1.setDept("内科");
+		d1.setDname("令狐冲");
+		d1.setPym("lhc");
+
+		Doctor d2 = new Doctor(2, "冯媛媛", "外科", "fyy");
+		Doctor d3 = new Doctor(3, "华佗", "外科", "ht");
+
+		ArrayList<Doctor> list = new ArrayList<Doctor>();
+		list.add(d1);
+		list.add(d2);
+		list.add(d3);
+
+		request.setAttribute("Dlist", list);
+	%>
+	<c:forEach items="${requestScope.Dlist }" var="d" varStatus="ds">//varStatus 得到循环总数
+		<c:if test="${ds.count%2!=0 }">//varStatus.count 第几次循环
+			<span style="color: red">医师：${d.getDname()}----${d.getDept() }----${ds.index }----${ds.count }</span>
+			<br />
+		</c:if>
+		<c:if test="${ds.count%2==0 }">
+			<span>医师：${d.getDname()}----${d.getDept() }----${ds.index }----${ds.count }</span>
+			<br />
+		</c:if>
+	</c:forEach>
+
+</body>
+</html>
