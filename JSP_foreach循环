@@ -1,5 +1,5 @@
 //Eclipse 使用JSTL需要导包 jstl standard
-
+//所需包下载地址（4个都要下载）： http://tomcat.apache.org/download-taglibs.cgi
 
 //对象部分------------------------------------
 
