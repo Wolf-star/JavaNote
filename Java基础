@@ -248,26 +248,122 @@
 			获取所有的键值对对象的集合
 			遍历键值对对象的集合，得到每一个键值对对象
 			根据键值对对象获取键和值
+
+10.字符缓冲流
+例：
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+
+			bis = new BufferedInputStream(new FileInputStream(
+					"C:\\Users\\E0A9850\\Desktop\\每日工作\\useful\\各种.net版本\\NDP452-KB2901907-x86-x64-AllOS-ENU.rar"));
+
+			bos = new BufferedOutputStream(new FileOutputStream("D:\\e\\images\\.net4.52.rar"));
+
+			byte[] bys = new byte[1024];
+			int len = bis.read(bys);
+			while (len != -1) {
+				bos.write(bys, 0, len);
+				len = bis.read(bys);
+
+/*
+	代码块：在Java中，使用{}括起来的代码被称为代码块。
+
+	根据其位置和声明的不同，可以分为
+		局部代码块：在方法中出现；限定变量生命周期，及早释放，提高内存利用率
+		构造代码块：在类中方法外出现；
+					多个构造方法方法中相同的代码存放到一起，每次调用构造都执行，并且在构造方法前执行
+		静态代码块：在类中方法外出现，加了static修饰。
+					用于给类进行初始化，在加载的时候就执行，并且只执行一次。
+*/
+					
+
+//Servlet 程序
+public void LoginServlet extends HttpServlet {
+	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+		//字符处理
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		//设置定时访问并刷新页面：
+		response.setHeader("Refresh","5;www.baidu.com");
+		//获取请求头信息：验证是否盗链
+		String host=request.getServerName();
+		String userHost=request.getParameter("referer");
+		if((host!=null)&&host.equals(userHost.startsWith())){
+			PrintWriter out=response.getWriter();
+			out.println("ready to downloading...")
+		}else{
+			response.sendRedirect("www.baidu.com");//错误处理
+		}
+		//获取请求体信息
+		String name=request.getParameter("username");//获取input表单中name=username的这个项
+		String pass=request.getParameter("password");
+		String [] hobbys=request.getParameterValues("hobby");//获取多个name=hobby的项
+
+		//重定向：可以引入外部网站，但要客户端请求两次
+		if (("wolf").equals(name)&& ("123").equals(password)) {
+			response.sendRedirect("/ServletDemo03/welcome.html");		
+		}else{
+			response.sendRedirect("www.baidu.com");//错误处理
+		}
+
+		//请求转发：客户端只请求一次，客户端的信息不会丢失，但只能访问自己服务器上的网站
+		if(("wolf").equals(name)&&("123").equals(password)){
+			request.getRequestDispatcher("/ServletDemo03/welcome.html").forward(request,response);
+		}else{
+			resquest.getRequestDispatcher("/ServletDemo03/login.html").forward(request,response);
+		}
+		//JSP的请求转发
+		<jsp:forward page="a.jsp"></jsp:forward>
+
+		//session回话跟踪：客户端提交的数据第一个页面获取后，跳转到第二个页面是会丢失，
+		//所以第一个页面获取的数据要保存在session对象中，供后面的页面获取
+		//作用域
+		//1.pageContext 当前页面有效
+		//2.request 可以转发到下一个jsp页面
+		//3.session 浏览器关闭前都有效
+		//4.application 一直有效
+		例：页面1：
+		<form action="/Servlet1">
+		<input type="text" name="sex" value="男"/>
+		<input type="submit" />
+		</form>
 		
+		Servlet1:
+		HttpSession session = request.getSession();
+		session.setAttribute("sex",request.getParameter("sex"));
+		String url="/Servlet2";
+		url=request.encodeURL(url);//重写url,防止cookie被禁用后无法访问
+		out.println("<a href='"+url+"'>Servlet2</a>")
+
+		Servlet2:
+		HttpSession session=request.getSession();
+		String s=(String)session.getAttribute("sex");
+		out.print(s);//Servlet2现在也能访问到客户端提交的数据
+
+
+		//JSP<%@ include file="a.jsp" %> 和<jsp:include page="a.jsp"></jsp:include>
+		//JSP<%@ include file="a.jsp" %> 会整个页面加入原JSP，共同生成一个.java文件，所以不能有同名的变量出现
+		//<jsp:include page="a.jsp"></jsp:include>只是把a.jsp结果输出到当前页面，单独生成一个.java文件
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		对于get请求解决中文乱码有两种途径一种是修改tomcat默认的编码方式为"UTF-8"
+
+		在tomcat的server.xml里把
+
+		<Connector connectionTimeout="50000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+
+		修改为
+
+		<Connector connectionTimeout="50000" port="8080" protocol="HTTP/1.1" redirectPort="8443" URIEncoding="UTF-8"/>
+
+		//JSP taglib标签<%@ taglib %>
+		//forEach 标签：items接收Servlet传入的对象集合，var标签是对象变量,可以调用对象的属性
+		<c:forEach items="${requestScope.list}" var="store">
+			<a href="${pageScope.store.getUrl()}">${pageScope.store.getName()}</a>
+		</c:forEach>
+
+		//fmt 日期格式化 value接收日期，pattern定义日期格式
+		<fmt:formateDate value="${requestScope.getDate()}" pattern="yyyy年MM月dd日"/>
+
+
+	}
+}
